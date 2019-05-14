@@ -24,8 +24,15 @@ I18n.translations = {
 const setLanguageToI18n = () => {
   const language = getLanguageByDevice()
   const translateNormalize = normalizeTranslate[language]
-  const iHaveThisLanguage = I18n.translations.hasOwnProperty(translateNormalize)
-  iHaveThisLanguage ? (I18n.locale = translateNormalize) : (I18n.defaultLocale = 'en_US')
+  const iHaveThisLanguage = Object.prototype.hasOwnProperty.call(
+    I18n.translations,
+    translateNormalize,
+  )
+  if (iHaveThisLanguage) {
+    I18n.locale = translateNormalize
+  } else {
+    I18n.defaultLocale = 'en_US'
+  }
 }
 
 setLanguageToI18n()
